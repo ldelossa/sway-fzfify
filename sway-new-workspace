@@ -1,0 +1,24 @@
+#!/bin/bash
+SCRIPTPATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
+
+# when we re-enter this script this env var will
+# be set.
+if [[ -n $SR ]]; then
+    echo ""
+    echo " New workspace: " |  pv -qL $[20+(-2 + RANDOM%5)]
+    echo ""
+    echo -n "  "
+    read newname
+    sway workspace $newname
+fi
+
+# launch alacritty instance with the size we want
+# and re-enter this script.
+SR=true zsh -c "alacritty \
+    -o window.dimensions.columns=50 \
+    -o window.dimensions.lines=3 \
+    -o font.size=16.0 \
+    -o window.padding.x=20 \
+    -o window.padding.y=20 \
+    --title "fzf-switcher" \
+    -e $SCRIPTPATH/sway-new-workspace"&

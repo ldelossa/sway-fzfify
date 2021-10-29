@@ -1,0 +1,3 @@
+# any window with the title "fzf-switcher" will be floating
+for_window [title="fzf-switcher"] floating enable
+
