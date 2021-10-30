@@ -5,13 +5,14 @@ Here are a series of scripts which FZFify your sway desktop.
 These scripts depend on:
 
   * Alacritty (popup terminal)
-  * Swaymsg (you almost certainly have this if you're using sway)
+  * swaymsg (you almost certainly have this if you're using sway)
   * pv (typewritter effect)
-  * notify-send (sends notifications)
+  * notify-send (notifications)
+  * jq (processing swaymsg output)
 
 Some of these requirements are opinionated, if you really want to ditch notify-send for dunstify or something like that, feel free to make an argument for it in the issue tracker.
 
-Its **very** likely your package manager has both Alacritty and the `pv` command.
+Its **very** likely your package manager has all these depedencies available.
 
 ## Installation
 
