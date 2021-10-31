@@ -9,7 +9,7 @@ if [[ -n $SR ]]; then
     echo ""
     echo -n "  "
     read newname
-    sway workspace $newname
+    swaymsg workspace $newname
 fi
 
 # launch alacritty instance with the size we want
