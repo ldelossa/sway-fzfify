@@ -4,7 +4,8 @@ Here are a series of scripts which FZFify your sway desktop.
 
 These scripts depend on:
 
-  * Alacritty (popup terminal)
+  * fzf
+  * alacritty (popup terminal)
   * swaymsg (you almost certainly have this if you're using sway)
   * pv (typewritter effect)
   * notify-send (notifications)
