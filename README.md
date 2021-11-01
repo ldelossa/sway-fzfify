@@ -80,6 +80,11 @@ The worst named of the scripts, but for some reason I'm going to keep it like th
 Opens an FZF window containing all windows across all environments. 
 Focuses the window (switching workpace if required) on selection.
 
+### sway-window-move
+
+Open an FZF window containing all workspaces and move the currently focused window
+to the selected workspace.
+
 ### sway-workspace-move
 
 Opens an FZF window containing all workspaces.
