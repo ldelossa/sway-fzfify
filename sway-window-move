@@ -1,5 +1,5 @@
 #!/bin/bash
-SCRIPTNAME="sway-window-move"
+SCRIPTNAME=$(basename $0)
 SCRIPTPATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 IFS=$'\n'
 
