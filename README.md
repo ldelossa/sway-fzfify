@@ -90,4 +90,4 @@ Selecting a workspace will move it to the currently focused output (screen/monit
 
 ## Demo
 
-[![FZFIFY Demonstration]()](https://user-images.githubusercontent.com/5642902/139495822-926a1055-5dcc-4e7a-90a6-ab22ee352d9f.mp4)
+[![FZFIFY Demonstration]()](https://user-images.githubusercontent.com/5642902/140243728-c71cd06e-393f-429a-ab11-6cf9b8508b0e.mp4)
