@@ -13,18 +13,31 @@ fi
 # forked shell, get the waiting string from the fifo
 # and call fzf and sway from there.
 prompt="Marks> "
+header="Press (d) to delete mark"
 if [[ -n $SMS_FIFO ]]; then
     # we are in the forked shell, read from
     # the provided FIFO and obtain the marks str
     # and pipe to fzf for selection.
     str=$(cat $SMS_FIFO)
     rm -rf $SMS_FIFO
-    selection=$(printf $str | fzf --prompt="$prompt" $fzf_color)
-    if [[ -z $selection ]]; then
+    selection=$(printf $str | fzf  --header=$header --prompt="$prompt" $fzf_color --expect="d")
+
+    readarray -t op_and_mark <<< "$selection"
+    op="${op_and_mark[0]}"
+    mark="${op_and_mark[1]}"
+
+    if [[ -z $mark ]]; then
         exit
     fi
-    swaymsg "[con_mark=\b$selection\b]" focus
-    notify-send -u low "moved to marked window $selection"
+
+    if [[ $op == "d" ]]; then
+        swaymsg unmark $mark
+        notify-send -u low "deleted mark: $mark"
+        exit
+    fi
+
+    swaymsg "[con_mark=\b$mark\b]" focus
+    notify-send -u low "moved to marked window $mark"
     exit
 fi
 
@@ -48,7 +61,7 @@ done
 # lines and columns, for columns make sure
 # we take the prompt into the padding consideration
 lines=$((lines+3))
-columns=$((columns+"${#prompt}"+5))
+columns=$((columns+"${#header}"+5))
 if [[ columns -gt 100 ]];
 then
     columns=100

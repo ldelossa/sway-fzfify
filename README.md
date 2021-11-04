@@ -54,17 +54,14 @@ you can then tell fzf to use light or dark colors so they do not clash with the 
 
 ### sway-mark
 
-This one is pretty pointless and just a convenience function. 
-You can symlink this to anywhere in $PATH with a shorter name and call
-it to mark a terminal window
-
-
-This is the same as just calling the swaymsg command to set the mark.
+Not fzf related, but gives you a prompt to enter a mark for the focused window. 
 
 ###  sway-marks-switcher
 
 Open an FZF window containing all the sway marks and focus the marked window 
 on selection.
+
+You can also hit the "d" key to delete a mark.
 
 ###  sway-new-workspace
 
