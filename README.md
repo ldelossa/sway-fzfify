@@ -83,6 +83,14 @@ Focuses the window (switching workpace if required) on selection.
 Open an FZF window containing all workspaces and move the currently focused window
 to the selected workspace.
 
+By specifying a non-listed workspace the window will be moved to a newly created workspace
+of the given name. 
+
+If a name conflict is about to occur suffix the new workspace with ":new" with no space. 
+
+For example, if a workspace named "apps" currently exists and you want to move a window to workspace "apps-1" 
+input the string "apps-1:new" to FZF and the scripts will rip off ":new" from the created workspace name.
+
 ### sway-workspace-move
 
 Opens an FZF window containing all workspaces.

@@ -13,7 +13,7 @@ fi
 # forked shell, get the waiting string from the fifo
 # and call fzf and sway from there.
 prompt="Marks> "
-header="Press (d) to delete mark"
+header="Switch to which mark? (d) to delete"
 if [[ -n $SMS_FIFO ]]; then
     # we are in the forked shell, read from
     # the provided FIFO and obtain the marks str

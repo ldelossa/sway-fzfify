@@ -19,8 +19,23 @@ if [[ -n $SWM_FIFO ]]; then
     # rm the fifo, we are done with it
     rm -rf $SWM_FIFO
 
-    selection=$(printf $str | fzf --prompt="$prompt" $fzf_color)
-    if [[ -z $selection ]]; then
+    selection=$(printf $str | fzf --print-query --prompt="$prompt" $fzf_color)
+    readarray -t query_and_workspace <<< "$selection"
+    query="${query_and_workspace[0]}"
+    workspace="${query_and_workspace[1]}"
+
+    if [[ -n $workspace ]]; 
+    then
+        selection=$workspace
+    elif [[ -n $query ]];
+    then 
+        if [[ ${query##*:} == "new" ]]; 
+        then 
+            selection=${query%:*}
+        else 
+            selection=$query
+        fi
+    else
         exit
     fi
 
@@ -51,7 +66,7 @@ done
 # lines and columns, for columns make sure
 # we take the prompt into the padding consideration
 lines=$((lines+3))
-columns=$((columns+"${#prompt}"+5))
+columns=$((columns+"${#header}"+5))
 if [[ columns -gt 100 ]];
 then
     columns=100
