@@ -13,14 +13,14 @@ fi
 # forked shell, get the waiting string from the fifo
 # and call fzf and sway from there.
 prompt="Marks> "
-header="Switch to which mark? (d) to delete"
+header="Switch to which mark? (!) to delete"
 if [[ -n $SMS_FIFO ]]; then
     # we are in the forked shell, read from
     # the provided FIFO and obtain the marks str
     # and pipe to fzf for selection.
     str=$(cat $SMS_FIFO)
     rm -rf $SMS_FIFO
-    selection=$(printf $str | fzf  --header=$header --prompt="$prompt" $fzf_color --expect="d")
+    selection=$(printf $str | fzf  --header=$header --prompt="$prompt" $fzf_color --expect="!")
 
     readarray -t op_and_mark <<< "$selection"
     op="${op_and_mark[0]}"

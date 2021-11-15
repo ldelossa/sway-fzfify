@@ -10,6 +10,8 @@ These scripts depend on:
   * pv (typewritter effect)
   * notify-send (notifications)
   * jq (processing swaymsg output)
+  * setsid (dmenu launcher)
+  * fd (finding files)
 
 Some of these requirements are opinionated, if you really want to ditch notify-send for dunstify or something like that, feel free to make an argument for it in the issue tracker.
 
@@ -95,6 +97,14 @@ input the string "apps-1:new" to FZF and the scripts will rip off ":new" from th
 
 Opens an FZF window containing all workspaces.
 Selecting a workspace will move it to the currently focused output (screen/monitor/electron gun)
+
+### sway-dmenu
+
+Opens an FZF window with a list of discovered desktop apps.
+Selecting an application will launch it in it's own subshell and exit fzf. 
+
+Currently, .desktop field codes such as %F and %U are stripped from the final
+command executed.
 
 ## Demo
 

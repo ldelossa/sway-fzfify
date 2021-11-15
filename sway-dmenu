@@ -1,0 +1,95 @@
+#!/bin/bash
+SCRIPTNAME=$(basename $0)
+SCRIPTPATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
+
+if [[ -n $THEME ]]; then
+    fzf_color="--color=$THEME"
+fi
+
+rm_field_codes() {
+    str=$1
+    str=${str//\%f/}
+    str=${str//\%F/}
+    str=${str//\%u/}
+    str=${str//\%U/}
+    str=${str//\%d/}
+    str=${str//\%D/}
+    str=${str//\%n/}
+    str=${str//\%N/}
+    str=${str//\%i/}
+    str=${str//\%c/}
+    str=${str//\%k/}
+    str=${str//\%v/}
+    str=${str//\%m/}
+    echo $str
+}
+
+# $THEME env variable set via sway config.
+
+# check for env variable, if exists we are the
+# forked shell, get the waiting string from the fifo
+# and call fzf and sway from there.
+prompt="Apps> "
+header="Launch which app?"
+if [[ -n $SMD_FIFO ]]; then
+    rm -rf $SMD_FIFO
+
+    declare -A name_to_exec
+    for p in $(fd -H -i -t file --glob "*.desktop" \
+        /usr/share/applications \
+        /usr/local/share/applications \
+        ~/.local/share/applications \
+        /var/lib/flatpak/app); do
+        
+        # ignore /files directory for flatpak 
+        if [[ "$p" == *"/files/share/applications"* ]]; then
+            continue
+        fi
+        
+        readarray -t name_and_exec <<< $(cat $p | grep -m 2 -we "Name=.*" -we "Exec=.*" | sort)
+        exec=${name_and_exec[0]#*=}
+        name=${name_and_exec[1]#*=}
+        if [[ -n $name ]] && [[ -n $exec ]];
+        then
+            name_to_exec[$name]=$exec
+        fi
+    done
+
+    # build fzf string
+    IFS=$'\n'
+    apps=""
+    for key in "${!name_to_exec[@]}"; do 
+        apps="$apps\n $key"
+    done
+
+    selection=$(printf $apps | fzf --header=$header --prompt="$prompt" $fzf_color)
+    selection=$(echo $selection | xargs echo -n)
+    if [[ -z $selection ]]; then
+        exit
+    fi
+    ex=$(rm_field_codes ${name_to_exec[$selection]})
+    setsid --fork bash -c $ex &> /dev/null
+    sleep .5
+    exit
+fi
+
+lines=20
+columns=$((columns+"${#header}"+20))
+if [[ columns -gt 100 ]];
+then
+    columns=100
+fi
+
+# create fifo and launch a terminal with the title "fzf-switcher"
+# run the script in the new terminal which will see the env vars
+# and execute the first if block in this script.
+fifo=/tmp/std-$(date +%s)
+mkfifo $fifo
+SMD_FIFO=$fifo zsh -c "alacritty \
+    -o window.dimensions.columns=$columns \
+    -o window.dimensions.lines=$lines \
+    -o font.size=16.0 \
+    -o window.padding.x=20 \
+    -o window.padding.y=20 \
+    --title "fzf-switcher" \
+    -e $SCRIPTPATH/$SCRIPTNAME"&
