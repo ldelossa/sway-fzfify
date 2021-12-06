@@ -85,7 +85,7 @@ fi
 # and execute the first if block in this script.
 fifo=/tmp/std-$(date +%s)
 mkfifo $fifo
-SMD_FIFO=$fifo zsh -c "alacritty \
+SMD_FIFO=$fifo $SHELL -c "alacritty \
     -o window.dimensions.columns=$columns \
     -o window.dimensions.lines=$lines \
     -o font.size=16.0 \

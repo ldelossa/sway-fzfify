@@ -72,7 +72,7 @@ fi
 
 fifo=/tmp/sts-$(date +%s)
 mkfifo $fifo
-fifo=$fifo zsh -c "alacritty \
+fifo=$fifo $SHELL -c "alacritty \
     -o window.dimensions.columns=$columns \
     -o window.dimensions.lines=$lines \
     -o font.size=16.0 \

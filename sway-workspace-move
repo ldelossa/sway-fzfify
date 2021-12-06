@@ -62,7 +62,7 @@ fi
 # and execute the first if block in this script.
 fifo=/tmp/sws-$(date +%s)
 mkfifo $fifo
-SWM_FIFO=$fifo zsh -c "alacritty \
+SWM_FIFO=$fifo $SHELL -c "alacritty \
     -o window.dimensions.columns=$columns \
     -o window.dimensions.lines=$lines \
     -o font.size=16.0 \
