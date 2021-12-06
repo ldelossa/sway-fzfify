@@ -16,7 +16,7 @@ fi
 
 # launch alacritty instance with the size we want
 # and re-enter this script.
-SM=true zsh -c "alacritty \
+SM=true $SHELL -c "alacritty \
     -o window.dimensions.columns=50 \
     -o window.dimensions.lines=3 \
     -o font.size=16.0 \

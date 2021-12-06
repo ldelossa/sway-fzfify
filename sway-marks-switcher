@@ -72,7 +72,7 @@ fi
 # and execute the first if block in this script.
 fifo=/tmp/sts-$(date +%s)
 mkfifo $fifo
-SMS_FIFO=$fifo zsh -c "alacritty \
+SMS_FIFO=$fifo $SHELL -c "alacritty \
     -o window.dimensions.columns=$columns \
     -o window.dimensions.lines=$lines \
     -o font.size=16.0 \
