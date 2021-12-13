@@ -59,11 +59,14 @@ if [[ -n $SMD_FIFO ]]; then
     IFS=$'\n'
     apps=""
     for key in "${!name_to_exec[@]}"; do 
-        apps="$apps\n $key"
+        ex=$(rm_field_codes ${name_to_exec[$key]})
+        ex=${ex##*/}
+        apps="$apps\n $key : $ex"
     done
 
     selection=$(printf $apps | fzf --header=$header --prompt="$prompt" $fzf_color)
     selection=$(echo $selection | xargs echo -n)
+    selection=${selection% :*}
     if [[ -z $selection ]]; then
         exit
     fi
