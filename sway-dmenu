@@ -45,7 +45,11 @@ if [[ -n $SMD_FIFO ]]; then
         if [[ "$p" == *"/files/share/applications"* ]]; then
             continue
         fi
-        
+
+        if [ ! -f "$p" ]; then
+            continue
+        fi
+            
         readarray -t name_and_exec <<< $(cat $p | grep -m 2 -we "Name=.*" -we "Exec=.*" | sort)
         exec=${name_and_exec[0]#*=}
         name=${name_and_exec[1]#*=}
