@@ -42,7 +42,6 @@ if [[ -n $SWM_FIFO ]]; then
     swaymsg focus tiling
     swaymsg move window to workspace $selection
     swaymsg workspace $selection
-    notify-send -u low "moved window to workspace: $selection"
     exit
 fi
 

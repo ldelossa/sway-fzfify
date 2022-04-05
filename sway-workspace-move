@@ -27,7 +27,6 @@ if [[ -n $SWM_FIFO ]]; then
     focused_output=$(swaymsg -r -t get_outputs  | jq -r '.[] | select( .focused == true ) | .name')
     swaymsg workspace $selection
     swaymsg move workspace to $focused_output
-    notify-send -u low "moved workspace: $selection to output: $focused_output"
     exit
 fi
 

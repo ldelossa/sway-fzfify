@@ -32,12 +32,10 @@ if [[ -n $SMS_FIFO ]]; then
 
     if [[ $op == "d" ]]; then
         swaymsg unmark $mark
-        notify-send -u low "deleted mark: $mark"
         exit
     fi
 
     swaymsg "[con_mark=\b$mark\b]" focus
-    notify-send -u low "moved to marked window $mark"
     exit
 fi
 
